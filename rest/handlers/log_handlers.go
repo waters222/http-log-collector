@@ -1,11 +1,12 @@
 package handlers
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"github.com/weishi258/http-log-collector/log"
 	"github.com/weishi258/http-log-collector/rest"
 	"github.com/weishi258/http-log-collector/rest/error_code"
-	"github.com/weishi258/http-log-collector/rest/model"
 	"go.uber.org/zap"
 	"io/ioutil"
 	"net/http"
@@ -33,12 +34,13 @@ func LogPost(w http.ResponseWriter, r *http.Request) ([]byte, int, error_code.Re
 		logger.Error("read from body failed", zap.String("error", err.Error()))
 		return nil, http.StatusBadRequest, error_code.NewResponseError(error_code.InvalidParameter)
 	}
-	logMessage := &model.LogMessage{}
-	if err = json.Unmarshal(body, &logMessage); err != nil {
+	var prettyJSON bytes.Buffer
+	err = json.Indent(&prettyJSON, body, "", "\t")
+	if err != nil {
 		logger.Error("unmarshal log json failed", zap.String("error", err.Error()))
 		return nil, http.StatusInternalServerError, error_code.NewResponseError(error_code.InternalError)
 	}
+	logger.Info(fmt.Sprintf("%s", string(prettyJSON.Bytes())))
 
-	logger.Debug("something hit me", zap.String("log", logMessage.Message))
 	return nil, http.StatusOK, nil
 }
