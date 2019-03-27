@@ -24,11 +24,6 @@
 #   go-tests = true
 #   unused-packages = true
 
-
-[[constraint]]
-  branch = "master"
-  name = "github.com/weishi258/parserhhub"
-
 [[constraint]]
   name = "go.uber.org/zap"
   version = "1.9.1"

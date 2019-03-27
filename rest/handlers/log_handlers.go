@@ -18,7 +18,7 @@ func GetLogRoutes() []rest.Route {
 		{
 			"logPost",
 			strings.ToUpper("post"),
-			"/v1/log",
+			"/log",
 			LogPost,
 			nil,
 		},

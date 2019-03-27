@@ -2,9 +2,9 @@ package rest
 
 import (
 	"context"
-	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/pkg/errors"
+	"github.com/weishi258/handlers"
 	"github.com/weishi258/http-log-collector/log"
 	"github.com/weishi258/http-log-collector/rest/constants"
 	"github.com/weishi258/http-log-collector/rest/error_code"
@@ -41,7 +41,7 @@ func getDefaultAllowedOrigins() []string {
 	return []string{"*"}
 }
 func getDefaultAllowedMethods() []string {
-	return []string{"GET", "POST", "OPTIONS", "DELETE", "PUT"}
+	return []string{"GET", "POST", "OPTIONS", "DELETE", "PUT", "PATCH"}
 }
 func NewRestServer(localAddr string) *RestServer {
 	ret := &RestServer{localAddr: localAddr,
